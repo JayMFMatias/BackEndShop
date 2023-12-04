@@ -1,5 +1,5 @@
 import { APIGatewayProxyHandler } from 'aws-lambda';
-import * as pg from 'pg'
+import {Client} from "pg";
 
 export const handler: APIGatewayProxyHandler = async (event, _context) => {
 
@@ -12,7 +12,7 @@ export const handler: APIGatewayProxyHandler = async (event, _context) => {
         password: process.env.DB_PASSWORD,
         port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 5432,
       };
-      const client = new pg.Client(dbOptions)
+      const client = new Client(dbOptions)
       try {
         await client.connect(); // Connect to the PostgreSQL database
     
