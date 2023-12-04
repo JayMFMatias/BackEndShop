@@ -11,13 +11,16 @@ export const handler: APIGatewayProxyHandler = async (event, _context) => {
         database: process.env.DB_NAME,
         password: process.env.DB_PASSWORD,
         port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 5432,
-      };
+        ssl: {
+          rejectUnauthorized: false,
+        }
+        };
       const client = new Client(dbOptions)
       try {
         await client.connect(); // Connect to the PostgreSQL database
     
         // Execute a sample query
-        const res = await client.query('SELECT * FROM your_table');
+        const res = await client.query('SELECT * FROM products');
         const data = res.rows;
     
         return {
