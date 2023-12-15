@@ -4,12 +4,26 @@ import {Client} from "pg";
 
 // Configure the HTTP server to respond with "Hello, World!" to all requests.
 const server = http.createServer(async (req: http.IncomingMessage, res: http.ServerResponse) => {
+  // Enable CORS
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  // Set up JSON responses
+  res.setHeader('Content-Type', 'application/json');
+
+  if(req.method === 'OPTIONS'){
+    res.writeHead(200);
+    res.end();
+    return;
+  }
    const products =  await getProducts();
    console.log(req.url);
    if (req.url=="/products")
    {
-    res.writeHead(200, {'Content-Type': 'application/json'});
-    res.end(JSON.stringify(products));
+    res.writeHead(200, {'Content-Type': 'application/json'
+  });
+    res.end((JSON.stringify(products)));
 
     return;
    }
@@ -31,7 +45,7 @@ async function getProducts()
         user: "postgres",
         host: "shopdatabe.cibsgi0q6iii.us-east-1.rds.amazonaws.com",
         database: "shop",
-        password: "PLACEHOLDER",
+        password: "SamandFrodoareaCouple!125",
         port: 5432,
         ssl: {
           rejectUnauthorized: false,
